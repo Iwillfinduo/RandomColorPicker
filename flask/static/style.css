@@ -1,0 +1,120 @@
+/* CSS styles */
+div {
+font-family: 'Helvetica', 'Arial', sans-serif;
+}
+
+
+#outer {
+  width:100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px
+}
+.first_rectangle{
+
+width: 50%;
+
+height: 50px;
+
+border:0px solid;
+
+margin:auto;
+
+background: #5F6F52;}
+
+.text_with_shadows{
+
+
+text-align: center;
+color: gray;
+mix-blend-mode: difference;
+
+line-height: 50px;
+-moz-border-radius: 10px; /* закругление для старых Mozilla Firefox */
+-webkit-border-radius: 10px; /* закругление для старых Chrome и Safari */
+-khtml-border-radius:10px; /* закругление для браузера Konquerer системы Linux */
+ border-radius: 10px;
+
+
+}
+.second_rectangle{
+
+width: 50%;
+
+height: 50px;
+
+border:0px solid;
+
+margin:auto;
+
+background: #A9B388;}
+
+.text_with_shadows{
+
+
+text-align: center;
+color: gray;
+mix-blend-mode: difference;
+
+line-height: 50px;
+-moz-border-radius: 10px; /* закругление для старых Mozilla Firefox */
+-webkit-border-radius: 10px; /* закругление для старых Chrome и Safari */
+-khtml-border-radius:10px; /* закругление для браузера Konquerer системы Linux */
+ border-radius: 10px;
+
+
+}
+.third_rectangle{
+
+width: 50%;
+
+height: 50px;
+
+border:0px solid;
+
+margin:auto;
+
+background: #FEFAE0;}
+
+.text_with_shadows{
+
+
+text-align: center;
+color: gray;
+mix-blend-mode: difference;
+
+line-height: 50px;
+-moz-border-radius: 10px; /* закругление для старых Mozilla Firefox */
+-webkit-border-radius: 10px; /* закругление для старых Chrome и Safari */
+-khtml-border-radius:10px; /* закругление для браузера Konquerer системы Linux */
+ border-radius: 10px;
+
+
+}
+.fourth_rectangle{
+
+width: 50%;
+
+height: 50px;
+
+border:0px solid;
+
+margin:auto;
+
+background: #B99470;}
+
+.text_with_shadows{
+
+
+text-align: center;
+color: gray;
+mix-blend-mode: difference;
+
+line-height: 50px;
+-moz-border-radius: 10px; /* закругление для старых Mozilla Firefox */
+-webkit-border-radius: 10px; /* закругление для старых Chrome и Safari */
+-khtml-border-radius:10px; /* закругление для браузера Konquerer системы Linux */
+ border-radius: 10px;
+
+
+}
