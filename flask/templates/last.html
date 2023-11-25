@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Last Palette in database</title>
+<link rel= "stylesheet" href= "/static/style.css">
+<script>function copyToClipboard(elementId) {
+
+    // Create a "hidden" input
+    var aux = document.createElement("input");
+  
+    // Assign it the value of the specified element
+    aux.setAttribute("value", document.getElementById(elementId).innerHTML);
+    var elem = document.getElementById(elementId);
+    var value = elem.innerHTML;
+    elem.innerHTML = "coppyed";
+  
+    // Append it to the body
+    document.body.appendChild(aux);
+  
+    // Highlight its content
+    aux.select();
+  
+    // Copy the highlighted text
+    document.execCommand("copy");
+  
+    // Remove it from the body
+    document.body.removeChild(aux);
+    setTimeout(() => { elem.innerHTML = value; }, 1000);
+  
+  } </script>
+</head>
+<body>
+<div id="outer">
+  <div class="typing-demo", id="inner">Your Last Color Palette</div>
+  <aside></aside>
+</div>
+<a class="block-list">
+<div class="first_rectangle text_with_shadows animate glow delay-1", style = "background-color: {{first_color}};" >
+  <span id = "1", onclick="copyToClipboard('1')">{{first_color}}</span>
+</div>
+<div class="second_rectangle text_with_shadows animate glow delay-2", style = "background-color: {{second_color}};" >
+  <span id = "2", onclick="copyToClipboard('2')">{{second_color}}</span>
+</div>
+<div class="third_rectangle text_with_shadows animate glow delay-3", style = "background-color: {{third_color}};" >
+  <span id = "3", onclick="copyToClipboard('3')">{{third_color}}</span>
+</div>
+<div class="fourth_rectangle text_with_shadows animate glow delay-4", style = "background-color: {{fourth_color}};" >
+  <span id = "4", onclick="copyToClipboard('4')">{{fourth_color}}</span>
+  </div>
+</a>
+<div style="font-size: 20px;">Likes : {{likes}}</div>
+</body>
+</html>

@@ -26,4 +26,4 @@ class Scraping(Resource):
 api.add_resource(Scraping, "/scraping/")
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port=6969)

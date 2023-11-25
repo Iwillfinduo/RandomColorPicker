@@ -118,3 +118,73 @@ line-height: 50px;
 
 
 }
+.animate {
+  animation-duration: 0.75s;
+  animation-duration: 1s; /*running slower to show effect */
+  animation-delay: 0.5s;
+  animation-name: animate-fade;
+  animation-timing-function: cubic-bezier(.26,.53,.74,1.48);
+  animation-fill-mode: backwards;
+}
+
+/* Glow In */
+.animate.glow {
+  animation-name: animate-glow;
+  animation-timing-function: ease;
+}
+@keyframes animate-glow {
+  0% {
+    opacity: 0;
+    filter: brightness(3) saturate(3);
+    transform: scale(0.8, 0.8);
+  }
+  100% {
+    opacity: 1;
+    filter: brightness(1) saturate(1);
+    transform: scale(1, 1);
+  }
+}
+
+
+/* Animation Delays */
+.delay-1 {
+animation-delay: 0.6s;
+}
+.delay-2 {
+animation-delay: 0.7s;
+}
+.delay-3 {
+animation-delay: 0.8s;
+}
+.delay-4 {
+animation-delay: 0.9s;
+}
+
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .animate {
+    animation: none !important;
+  }
+}
+
+.typing-demo {
+  width: 23ch;
+  animation: typing 2s steps(23), blink .5s step-end infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid;
+  font-family: monospace;
+  font-size: 2em;
+}
+
+@keyframes typing {
+  from {
+    width: 0
+  }
+}
+    
+@keyframes blink {
+  50% {
+    border-color: transparent
+  }
+}

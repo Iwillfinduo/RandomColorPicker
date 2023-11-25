@@ -1,53 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>HTML CSS JS</title>
-<link rel= "stylesheet" href= "/static/style.css">
-<script>function copyToClipboard(elementId) {
-
-    // Create a "hidden" input
-    var aux = document.createElement("input");
-  
-    // Assign it the value of the specified element
-    aux.setAttribute("value", document.getElementById(elementId).innerHTML);
-    var elem = document.getElementById(elementId);
-    var value = elem.innerHTML;
-    elem.innerHTML = "coppyed";
-  
-    // Append it to the body
-    document.body.appendChild(aux);
-  
-    // Highlight its content
-    aux.select();
-  
-    // Copy the highlighted text
-    document.execCommand("copy");
-  
-    // Remove it from the body
-    document.body.removeChild(aux);
-    setTimeout(() => { elem.innerHTML = value; }, 1000);
-  
-  } </script>
+<title>Главная</title>
+<link rel= "stylesheet" href= "/static/index_style.css">
 </head>
 <body>
-<div id="outer">
-  <div id="inner">Your Best Color Palette</div>
-  <aside></aside>
-</div>
-<a class="block-list">
-<div class="first_rectangle text_with_shadows", style = "background-color: #{{first_color}};" >
-  <span id = "1", onclick="copyToClipboard('1')">{{first_color}}</span>
-</div>
-<div class="second_rectangle text_with_shadows", style = "background-color: #{{second_color}};" >
-  <span id = "2", onclick="copyToClipboard('2')">{{second_color}}</span>
-</div>
-<div class="third_rectangle text_with_shadows", style = "background-color: #{{third_color}};" >
-  <span id = "3", onclick="copyToClipboard('3')">{{third_color}}</span>
-</div>
-<div class="fourth_rectangle text_with_shadows", style = "background-color: #{{fourth_color}};" >
-  <span id = "4", onclick="copyToClipboard('4')">{{fourth_color}}</span>
-  </div>
-</a>
-<div style="font-size: 20px;">Likes : {{likes}}</div>
+  <div class="header"> У тебя есть два выбора, Нео: </div>
+<p class="first link"><a href="http://127.0.0.1:5001/best">💊Лучшая палетка в базе данных</a></p>
+<p class="second link"><a href="http://127.0.0.1:5001/last">💊Последняя палетка в базе данных</a></p>
 </body>
 </html>

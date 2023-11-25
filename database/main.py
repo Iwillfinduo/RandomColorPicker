@@ -30,7 +30,12 @@ class GlobalDBResourse(Resource):
                                    third_color = arg["third_color"],
                                    fourth_color = arg["fourth_color"],
                                    unique_string = unique_string,
-                                   likes = arg['likes']))
+                                   likes = int(str(arg['likes']).replace(',', ''))))
+                    db.commit()
+            else:
+                with create_session() as db:
+                    row = db.scalar(select(Pallete).where(Pallete.unique_string == unique_string))
+                    row.likes = int(str(arg['likes']).replace(',', ''))
                     db.commit()
         return 200
         
@@ -38,13 +43,20 @@ class GlobalDBResourse(Resource):
         args = get_parser.parse_args()
         if args["type"] == "like":
             with create_session() as db:
-                max_likes = func.max(Pallete.likes)
                 best_palette = db.scalar(select(Pallete).where(Pallete.likes == select(func.max(Pallete.likes)).scalar_subquery()))
                 return {"first_color": best_palette.first_color,
                         "second_color": best_palette.second_color,
                         "third_color": best_palette.third_color,
                         "fourth_color": best_palette.fourth_color,
                         "likes": best_palette.likes} , 200
+        elif args["type"] == "time":
+            with create_session() as db:
+                last_palette = db.query(Pallete).filter_by(created_date = Pallete.created_date).all()[0]
+                return {"first_color": last_palette.first_color,
+                        "second_color": last_palette.second_color,
+                        "third_color": last_palette.third_color,
+                        "fourth_color": last_palette.fourth_color,
+                        "likes": last_palette.likes} , 200
         else:
             return 400
 
@@ -53,4 +65,4 @@ api.add_resource(GlobalDBResourse, "/database/")
 
 if __name__ == "__main__":
     global_init("data/database.db")
-    app.run()
+    app.run(port=4343)
