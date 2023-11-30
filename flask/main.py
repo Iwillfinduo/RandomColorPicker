@@ -1,5 +1,4 @@
 from flask import Flask, render_template
-import scrapy
 import requests
 import json
 
@@ -8,6 +7,7 @@ app = Flask(__name__)
 @app.route("/best")
 def best():
     response = requests.get("http://127.0.0.1:4343/database", json={"type":"like"}).json()
+    print(response)
     
     return render_template("best.html", first_color=response["fourth_color"],second_color = response["third_color"],
                            third_color=response["second_color"], fourth_color=response["first_color"], likes=response["likes"])
@@ -18,7 +18,8 @@ def main():
 
 @app.route("/last")
 def last():
-    response = requests.get("http://127.0.0.1:4343/database", json={"type":"time"}).json()
+    response = requests.get("http://localhost:4343/database", json={"type":"time"}).json()
+    print(response)
     
     return render_template("last.html", first_color=response["fourth_color"],second_color = response["third_color"],
                            third_color=response["second_color"], fourth_color=response["first_color"], likes=response["likes"])

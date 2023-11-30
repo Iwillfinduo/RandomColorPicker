@@ -51,7 +51,8 @@ class GlobalDBResourse(Resource):
                         "likes": best_palette.likes} , 200
         elif args["type"] == "time":
             with create_session() as db:
-                last_palette = db.query(Pallete).filter_by(created_date = Pallete.created_date).all()[0]
+                last_palettes = db.query(Pallete).filter(Pallete.created_date == select(func.max(Pallete.created_date)).scalar_subquery())
+                last_palette = last_palettes[0]
                 return {"first_color": last_palette.first_color,
                         "second_color": last_palette.second_color,
                         "third_color": last_palette.third_color,
