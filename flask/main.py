@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route("/best")
 def best():
-    response = requests.get("http://127.0.0.1:4343/database", json={"type":"like"}).json()
+    response = requests.get("http://database:4343/database", json={"type":"like"}).json()
     print(response)
     
     return render_template("best.html", first_color=response["fourth_color"],second_color = response["third_color"],
@@ -18,7 +18,7 @@ def main():
 
 @app.route("/last")
 def last():
-    response = requests.get("http://localhost:4343/database", json={"type":"time"}).json()
+    response = requests.get("http://database:4343/database", json={"type":"time"}).json()
     print(response)
     
     return render_template("last.html", first_color=response["fourth_color"],second_color = response["third_color"],
@@ -26,4 +26,4 @@ def last():
     
 
 if __name__ == "__main__":
-    app.run(port=5001)
+    app.run(port=5001, host="0.0.0.0")

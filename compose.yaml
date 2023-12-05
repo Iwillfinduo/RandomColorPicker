@@ -1,27 +1,25 @@
 services:
-  # scrapping:
-  #   build: ./scrapping
-  #   expose:
-  #     - "6969:6969"
-  #     - "6023:6023"
-  #   environment:
-  #     FLASK_DEBUG: "true"
+  scrapping:
+    build: ./scrapping
+    ports:
+      - "6969:6969"
+      - "6023:6023"
+    environment:
+      FLASK_DEBUG: "true"
   web:
     build: ./flask
-    expose:
+    ports:
       - "5001:5001"
     environment:
       FLASK_DEBUG: "true"
-  # database:
-  #   build: ./database
-  #   expose:
-  #     - "4343:4343"
-  #     - "6969:6969"
-  #   environment:
-  #     FLASK_DEBUG: "true"
-  # poller:
-  #   build: ./poller
-  #   depends_on:
-  #    - database
-  #    - scrapping
-  #   network_mode: host
+  database:
+    build: ./database
+    ports:
+      - "4343:4343"
+    environment:
+      FLASK_DEBUG: "true"
+  poller:
+    build: ./poller
+    depends_on:
+     - database
+     - scrapping

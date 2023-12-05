@@ -1,8 +1,21 @@
 FROM python:3.10
 WORKDIR /app
 COPY . /app
-EXPOSE 6969
+RUN apt-get update
 RUN pip install -r requirements.txt
+RUN apt-get install -y libnss3
+RUN apt-get install -y libdbus-1-3
+RUN apt-get install -y libatk1.0-0
+RUN apt-get install -y libatk-bridge2.0-0
+RUN apt-get install -y libcups2
+RUN apt-get install -y libdrm2
+RUN apt-get install -y libxkbcommon0
+RUN apt-get install -y libatspi2.0-0
+RUN apt-get install -y libxcomposite1
+RUN apt-get install -y libxdamage1
+RUN apt-get install -y libxfixes3
+RUN apt-get install -y libxrandr2
+RUN apt-get install -y libgbm1
+RUN apt-get install -y libasound2
 RUN playwright install
-CMD [ "/bin/ls", "-l" ]
 CMD [ "python3", "scraping_api.py"]

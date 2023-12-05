@@ -66,4 +66,4 @@ api.add_resource(GlobalDBResourse, "/database/")
 
 if __name__ == "__main__":
     global_init("data/database.db")
-    app.run(port=4343)
+    app.run(port=4343, host="0.0.0.0")
