@@ -8,6 +8,12 @@ from db import Pallete
 app = Flask(__name__)
 api = Api(app)
 
+def FormAResponse(Pallete):
+    return {"first_color": Pallete.first_color,
+            "second_color": Pallete.second_color,
+            "third_color": Pallete.third_color,
+            "fourth_color": Pallete.fourth_color,
+            "likes": Pallete.likes} , 200
 
 post_parser = reqparse.RequestParser()
 post_parser.add_argument('array', type = dict, required=True, action='append')
@@ -19,21 +25,20 @@ get_parser.add_argument('type', type = str, required=True)
 class GlobalDBResourse(Resource):
     def post(self):
         args = post_parser.parse_args()
-        for arg in args['array']:
-            unique_string = arg["first_color"] + arg["second_color"] + arg["third_color"] + arg["fourth_color"]
-            with create_session() as db:
+        with create_session() as db:
+            for i in range(len(args["array"]) - 1, -1, -1):
+                arg = args["array"][i]
+                unique_string = arg["first_color"] + arg["second_color"] + arg["third_color"] + arg["fourth_color"]
                 exists = db.scalar(select(Pallete).where(Pallete.unique_string == unique_string)) is not None
-            if not exists:
-                with create_session() as db:
-                    db.add(Pallete(first_color=arg["first_color"],
-                                   second_color=arg["second_color"],
-                                   third_color = arg["third_color"],
-                                   fourth_color = arg["fourth_color"],
-                                   unique_string = unique_string,
-                                   likes = int(str(arg['likes']).replace(',', ''))))
-                    db.commit()
-            else:
-                with create_session() as db:
+                if not exists:
+                        db.add(Pallete(first_color=arg["first_color"],
+                                    second_color=arg["second_color"],
+                                    third_color = arg["third_color"],
+                                    fourth_color = arg["fourth_color"],
+                                    unique_string = unique_string,
+                                    likes = int(str(arg['likes']).replace(',', ''))))
+                        db.commit()
+                else:
                     row = db.scalar(select(Pallete).where(Pallete.unique_string == unique_string))
                     row.likes = int(str(arg['likes']).replace(',', ''))
                     db.commit()
@@ -44,20 +49,12 @@ class GlobalDBResourse(Resource):
         if args["type"] == "like":
             with create_session() as db:
                 best_palette = db.scalar(select(Pallete).where(Pallete.likes == select(func.max(Pallete.likes)).scalar_subquery()))
-                return {"first_color": best_palette.first_color,
-                        "second_color": best_palette.second_color,
-                        "third_color": best_palette.third_color,
-                        "fourth_color": best_palette.fourth_color,
-                        "likes": best_palette.likes} , 200
+                return FormAResponse(best_palette)
         elif args["type"] == "time":
             with create_session() as db:
-                last_palettes = db.query(Pallete).filter(Pallete.created_date == select(func.max(Pallete.created_date)).scalar_subquery())
+                last_palettes = db.query(Pallete).filter(Pallete.id == select(func.max(Pallete.id)).scalar_subquery())
                 last_palette = last_palettes[0]
-                return {"first_color": last_palette.first_color,
-                        "second_color": last_palette.second_color,
-                        "third_color": last_palette.third_color,
-                        "fourth_color": last_palette.fourth_color,
-                        "likes": last_palette.likes} , 200
+                return FormAResponse(last_palette)
         else:
             return 400
 

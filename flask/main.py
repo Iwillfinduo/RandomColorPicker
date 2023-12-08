@@ -1,12 +1,13 @@
 from flask import Flask, render_template
 import requests
 import json
+import os
 
 app = Flask(__name__)
 
 @app.route("/best")
 def best():
-    response = requests.get("http://database:4343/database", json={"type":"like"}).json()
+    response = requests.get(str(os.environ["DBADRESS"]), json={"type":"like"}).json()
     print(response)
     
     return render_template("best.html", first_color=response["fourth_color"],second_color = response["third_color"],
@@ -18,7 +19,7 @@ def main():
 
 @app.route("/last")
 def last():
-    response = requests.get("http://database:4343/database", json={"type":"time"}).json()
+    response = requests.get(str(os.environ["DBADRESS"]), json={"type":"time"}).json()
     print(response)
     
     return render_template("last.html", first_color=response["fourth_color"],second_color = response["third_color"],

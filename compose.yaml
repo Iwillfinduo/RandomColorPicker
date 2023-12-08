@@ -11,7 +11,8 @@ services:
     ports:
       - "5001:5001"
     environment:
-      FLASK_DEBUG: "true"
+      - FLASK_DEBUG:true
+      - DBADRESS=http://database:4343/database/
   database:
     build: ./database
     ports:
@@ -23,3 +24,6 @@ services:
     depends_on:
      - database
      - scrapping
+    environment:
+      - DBADRESS=http://database:4343/database/
+      - SCRAPING= http://scrapping:6969/scraping/

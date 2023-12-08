@@ -26,3 +26,8 @@ h1 {
       transform: translate(-50%, -50%);
       padding: 10px;
     }
+img{
+  position: absolute;
+  top: 52%;
+  left: 18.5%;
+}
