@@ -49,12 +49,18 @@ class GlobalDBResourse(Resource):
         if args["type"] == "like":
             with create_session() as db:
                 best_palette = db.scalar(select(Pallete).where(Pallete.likes == select(func.max(Pallete.likes)).scalar_subquery()))
-                return FormAResponse(best_palette)
+                if best_palette != None:
+                    return FormAResponse(best_palette)
+                else:
+                    return None, 200
         elif args["type"] == "time":
             with create_session() as db:
                 last_palettes = db.query(Pallete).filter(Pallete.id == select(func.max(Pallete.id)).scalar_subquery())
-                last_palette = last_palettes[0]
-                return FormAResponse(last_palette)
+                if last_palettes == None:
+                    return None, 200
+                else:
+                    last_palette = last_palettes[0]
+                    return FormAResponse(last_palette)
         else:
             return 400
 
