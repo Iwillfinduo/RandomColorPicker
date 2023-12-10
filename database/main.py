@@ -30,7 +30,7 @@ class GlobalDBResourse(Resource):
                 arg = args["array"][i]
                 unique_string = arg["first_color"] + arg["second_color"] + arg["third_color"] + arg["fourth_color"]
                 exists = db.scalar(select(Pallete).where(Pallete.unique_string == unique_string)) is not None
-                if not exists:
+                if not exists and arg['likes'] != "like":
                         db.add(Pallete(first_color=arg["first_color"],
                                     second_color=arg["second_color"],
                                     third_color = arg["third_color"],
@@ -39,9 +39,10 @@ class GlobalDBResourse(Resource):
                                     likes = int(str(arg['likes']).replace(',', ''))))
                         db.commit()
                 else:
-                    row = db.scalar(select(Pallete).where(Pallete.unique_string == unique_string))
-                    row.likes = int(str(arg['likes']).replace(',', ''))
-                    db.commit()
+                    if arg['likes'] != "like":
+                        row = db.scalar(select(Pallete).where(Pallete.unique_string == unique_string))
+                        row.likes = int(str(arg['likes']).replace(',', ''))
+                        db.commit()
         return 200
         
     def get(self):
