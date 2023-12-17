@@ -30,7 +30,7 @@ class GlobalDBResourse(Resource):
                 arg = args["array"][i]
                 unique_string = arg["first_color"] + arg["second_color"] + arg["third_color"] + arg["fourth_color"]
                 exists = db.scalar(select(Pallete).where(Pallete.unique_string == unique_string)) is not None
-                if not exists and arg['likes'] != "like":
+                if not exists and arg['likes'] != "Like":
                         db.add(Pallete(first_color=arg["first_color"],
                                     second_color=arg["second_color"],
                                     third_color = arg["third_color"],
@@ -47,7 +47,7 @@ class GlobalDBResourse(Resource):
         
     def get(self):
         args = get_parser.parse_args()
-        if args["type"] == "like":
+        if args["type"] == "Like":
             with create_session() as db:
                 best_palette = db.scalar(select(Pallete).where(Pallete.likes == select(func.max(Pallete.likes)).scalar_subquery()))
                 if best_palette != None:
