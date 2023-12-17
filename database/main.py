@@ -39,7 +39,7 @@ class GlobalDBResourse(Resource):
                                     likes = int(str(arg['likes']).replace(',', ''))))
                         db.commit()
                 else:
-                    if arg['likes'] != "like":
+                    if arg['likes'] != "Like":
                         row = db.scalar(select(Pallete).where(Pallete.unique_string == unique_string))
                         row.likes = int(str(arg['likes']).replace(',', ''))
                         db.commit()
@@ -47,7 +47,7 @@ class GlobalDBResourse(Resource):
         
     def get(self):
         args = get_parser.parse_args()
-        if args["type"] == "Like":
+        if args["type"] == "like":
             with create_session() as db:
                 best_palette = db.scalar(select(Pallete).where(Pallete.likes == select(func.max(Pallete.likes)).scalar_subquery()))
                 if best_palette != None:
