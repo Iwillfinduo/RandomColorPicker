@@ -19,6 +19,8 @@ services:
       - "4343:4343"
     environment:
       FLASK_DEBUG: "true"
+    volumes:
+      - dbdata:/app/data
   poller:
     build: ./poller
     depends_on:
@@ -27,3 +29,5 @@ services:
     environment:
       - DBADRESS=http://database:4343/database/
       - SCRAPING= http://scrapping:6969/scraping/
+volumes:
+  dbdata:
