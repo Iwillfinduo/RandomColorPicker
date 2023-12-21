@@ -1,0 +1,33 @@
+services:
+  scrapping:
+    build: ./scrapping
+    ports:
+      - "6969:6969"
+      - "6023:6023"
+    environment:
+      FLASK_DEBUG: "true"
+  web:
+    build: ./flask
+    ports:
+      - "5001:5001"
+    environment:
+      - FLASK_DEBUG:true
+      - DBADRESS=http://database:4343/database/
+  database:
+    build: ./database
+    ports:
+      - "4343:4343"
+    environment:
+      FLASK_DEBUG: "true"
+    volumes:
+      - dbdata:/app/data
+  poller:
+    build: ./poller
+    depends_on:
+     - database
+     - scrapping
+    environment:
+      - DBADRESS=http://database:4343/database/
+      - SCRAPING= http://scrapping:6969/scraping/
+volumes:
+  dbdata:
